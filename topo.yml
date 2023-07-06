@@ -1,0 +1,23 @@
+name: dhcp6-demo
+
+topology:
+  nodes:
+    srlinux1:
+      kind: srl
+      image: ghcr.io/nokia/srlinux:latest
+      type: ixrd3
+    dhcp:
+      kind: linux
+      image: ghcr.io/cloud-native-everything/dhcpd6:v2307
+      binds:
+        - dhcp/dhcpd6.conf:/etc/dhcp/dhcpd6.conf
+        - dhcp/eth1-ipv6-conf.sh:/eth1-ipv6-conf.sh
+      env:
+        DHCPD_PROTOCOL: 6
+      exec: 
+        - sh /eth1-ipv6-conf.sh
+        - sleep 2 
+        - sh /dhcpd6-init.sh         
+
+  links:
+    - endpoints: ["dhcp:eth1", "srlinux1:e1-4"]  
