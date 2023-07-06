@@ -1,4 +1,5 @@
-FROM alpine
+FROM alpine:latest
+
 LABEL org.opencontainers.image.source https://github.com/cloud-native-everything/dhcpd6
 RUN set -xe \
     && apk add --no-cache --purge -uU tzdata dhcp openrc \
