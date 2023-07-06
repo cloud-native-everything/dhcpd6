@@ -6,30 +6,24 @@ env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: ${{ github.repository }}:v2307
 
 
 jobs:
   build_and_publish:
 
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-      # This is used to complete the identity challenge
-      # with sigstore/fulcio when running outside of PRs.
-      id-token: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
         
       - name: Docker Login
-        run: echo "${{ secrets.GB_DHCPD6_TOKEN }}" | docker login ghcr.io --username cloud-native-everything --password-stdin
+        run: echo "${{ secrets.GB_DHCPD6_TOKEN }}" | docker login ${{ REGISTRY }} --username cloud-native-everything --password-stdin
      
       - name: Docker Build
-        run: docker build -t ghcr.io/cloud-native-everything/dhcpd6:v2307 .
+        run: docker build -t ${{ REGISTRY }}/${{ IMAGE_NAME }} .
         
       - name: Docker Push
-        run: docker push  ghcr.io/cloud-native-everything/dhcpd6:v2307
+        run: docker push  ${{ REGISTRY }}/${{ IMAGE_NAME }}
 
