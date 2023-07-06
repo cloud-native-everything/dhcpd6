@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v3
         
       - name: Docker Login
-        run: docker login --username cloud-native-everything --password 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 ghcr.io
+        run: docker login --username cloud-native-everything --password ${{secrets.GB_DHCPD6_TOKEN}} ghcr.io
      
       - name: Docker Build
         run: docker build -t ghcr.io/cloud-native-everything/dhcpd6:v2307 .
