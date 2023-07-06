@@ -18,7 +18,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         
-      - name: Docker Login
+      - name: Docker Login TOKEN: ${{ secrets.GB_DHCPD6_TOKEN }}
         run: echo "${{ secrets.GB_DHCPD6_TOKEN }}" | docker login ${{ env.REGISTRY }} --username cloud-native-everything --password-stdin
      
       - name: Docker Build
