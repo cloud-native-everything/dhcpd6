@@ -2,6 +2,13 @@
 
 This repository provides a simple DHCPD6 server for use in containerlab. It was originally developed for a MAPT demo and is built from an Alpine image.
 
+## Pull the image into your docker local image registry
+
+You can use it directly just pulling the image as follow:
+```shell
+docker pull ghcr.io/cloud-native-everything/dhcpd6:v2307
+```
+
 ## Create image
 To create the DHCPD6 server image, use the following command:
 ```shell
